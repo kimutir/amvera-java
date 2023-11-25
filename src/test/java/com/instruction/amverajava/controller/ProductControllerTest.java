@@ -1,8 +1,10 @@
 package com.instruction.amverajava.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.instruction.amverajava.AmveraJavaApplicationTests;
 import com.instruction.amverajava.models.Product;
 import com.instruction.amverajava.repository.ProductRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +23,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ProductControllerTest {
+class ProductControllerTest extends AmveraJavaApplicationTests {
+
+    @BeforeEach
+    public void set() {
+        productRepository.deleteAll();
+    }
 
     @Autowired
     private ProductRepository productRepository;
@@ -58,6 +65,7 @@ class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("Kiwi"))
+                .andExpect(jsonPath("$.price").value(300.0))
                 .andExpect(jsonPath("$.amount").value(3));
     }
 
