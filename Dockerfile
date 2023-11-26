@@ -1,5 +1,4 @@
 FROM maven:3.9.4 as build
-EXPOSE 80
 WORKDIR /app
 COPY pom.xml /app
 RUN mvn dependency:resolve
