@@ -3,6 +3,7 @@ package com.instruction.amverajava.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.instruction.amverajava.models.Product;
 import com.instruction.amverajava.repository.ProductRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ProductControllerTest {
 
     @Autowired
@@ -32,6 +32,11 @@ class ProductControllerTest {
     @Autowired
     private ObjectMapper mapper;
 
+    @BeforeEach
+    void set() {
+        productRepository.deleteAll();
+    }
+
     @Test
     void initiallyShouldReturnEmptyProductList() throws Exception {
         mockMvc.perform(get("/product"))
@@ -42,8 +47,8 @@ class ProductControllerTest {
     @Test
     void shouldSaveProduct() throws Exception {
         mockMvc.perform(post("/product")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(createProduct())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(createProduct())))
                 .andExpect(status().isOk());
 
         assertThat(productRepository.findAll()).hasSize(1);
