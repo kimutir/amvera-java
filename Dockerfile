@@ -1,5 +1,5 @@
 FROM maven:3.9.4 as build
-EXPOSE 8080
+#EXPOSE 8080
 WORKDIR /app
 COPY pom.xml /app
 RUN mvn dependency:resolve
