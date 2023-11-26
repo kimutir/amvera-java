@@ -7,7 +7,7 @@ meta:
 build:
   artifacts:
     target/*.jar: /
-  args: 'spring-boot:repackage'
+  args: spring-boot:repackage
 run:
   jarName: amvera-java-0.0.1-SNAPSHOT.jar
   persistenceMount: /data
