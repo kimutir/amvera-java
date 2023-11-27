@@ -1,14 +1,20 @@
 ---
+# используемое окружение
 meta:
   environment: jvm
   toolchain:
     name: maven
     version: 11
 build:
+#  копируем все файлы с расширением jar из папки target
   artifacts:
     target/*.jar: /
+#    дополнительный параметр к команде mvn clean package
   args: spring-boot:repackage
 run:
+#  путь до исполняемого файла
   jarName: amvera-java-0.0.1-SNAPSHOT.jar
+#  директория с постоянным хранилищем
   persistenceMount: /data
+#  порт, который слушает приложение
   containerPort: 8080
