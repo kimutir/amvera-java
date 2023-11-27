@@ -1,0 +1,11 @@
+meta:
+  #  окружение для сборки с использованием docker
+  environment: docker
+  toolchain:
+    name: docker
+build:
+  #  путь к Dockerfile без /
+  dockerfile: Dockerfile
+run:
+  #  порт, который слушает наше приложение
+  containerPort: 8080
